@@ -1,37 +1,61 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProfessorTest {
+    private Cidade cidade;
+    private Escolaridade escolaridade;
+    private  Professor professor;
+    private Curso curso;
+    private Estado estado;
+    private Escola escola;
+    private Aluno aluno;
+    private TipoEnsino tipoEnsino;
+    @BeforeEach
+    void setUp() {
+        tipoEnsino = new TipoEnsino();
+        estado = new Estado();
+        cidade = new Cidade(estado);
+        escolaridade = new Escolaridade();
+        professor = new Professor(escolaridade,cidade);
+        escola = new Escola(professor,cidade);
+        curso = new Curso(professor,escola,tipoEnsino);
+        aluno = new Aluno(escolaridade,cidade,curso);
 
-    @Test
-    void deveRetornarSuperior(){
-        Professor professor = new Professor();
-        Escolaridade escolaridade = new Escolaridade();
-        escolaridade.setFormacao("Superior");
-        professor.setEscolaridade(escolaridade);
-        assertEquals("Superior",professor.getEscolaridade().getFormacao());
     }
     @Test
-    void deveRetornarValinhos() {
-        Professor professor = new Professor();
-        Cidade cidade = new Cidade();
-        cidade.setNome("Valinhos");
-        professor.setNaturalidade(cidade);
-        assertEquals("Valinhos",professor.getNaturalidade().getNome());
+    void deveRetornarMestrado() {
+        escolaridade.setFormacao("Mestrado");
+        assertEquals("Mestrado",professor.getDescricaoEscolaridade());
     }
     @Test
-    void deveRetornarFundamental() {
-        Professor professor = new Professor();
-        Curso curso = new Curso();
-        TipoEnsino tipoEnsino = new TipoEnsino();
-        tipoEnsino.setGrau("Fundamental");
+    void deveRetornarIapoque() {
+        cidade.setNome("Iapoque");
+        assertEquals("Iapoque",professor.retornaCidadeNascimento());
+    }
+    @Test
+    void deveRetornarMedio() {
         professor.setCurso(curso);
-        curso.setTipoEnsino(tipoEnsino);
-        assertEquals("Fundamental",professor.getCurso().getTipoEnsino().getGrau());
-
-
+        tipoEnsino.setGrau("Medio");
+        assertEquals("Medio",professor.retornaGrauAtuacao());
     }
+    @Test
+    void deveRetornarPassini() {
+        professor.setCurso(curso);
+        professor.setNome("Passini");
+        assertEquals("Passini",professor.retornaDiretor());
+    }
+    @Test
+    void deveRetornarMarco() {
+        professor.setCurso(curso);
+        professor.setNome("Marco");
+        Professor coordenador = new Professor(escolaridade, cidade);
+        coordenador.setNome("Jean");
+        curso.setCoordenador(coordenador);
+        assertEquals("Jean",professor.retornaCoordenador());
+    }
+
 
 
 }

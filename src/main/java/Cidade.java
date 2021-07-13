@@ -2,6 +2,10 @@ public class Cidade {
     private Estado estado;
     private String nome;
 
+    public Cidade(Estado estado) {
+        this.estado = estado;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -16,5 +20,9 @@ public class Cidade {
 
     public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    public String getNomeEstado(){
+        return estado.getNome();
     }
 }

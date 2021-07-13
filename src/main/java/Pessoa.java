@@ -1,6 +1,12 @@
 public class Pessoa {
     private Escolaridade escolaridade;
     String nome;
+    Cidade naturalidade;
+
+    public Pessoa(Escolaridade escolaridade,Cidade naturalidade) {
+        this.escolaridade = escolaridade;
+        this.naturalidade = naturalidade;
+    }
 
     public String getNome() {
         return nome;
@@ -10,7 +16,7 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    private Cidade naturalidade;
+
 
     public Escolaridade getEscolaridade() {
         return escolaridade;
@@ -26,5 +32,17 @@ public class Pessoa {
 
     public void setNaturalidade(Cidade naturalidade) {
         this.naturalidade = naturalidade;
+    }
+
+    public String getDescricaoEscolaridade(){
+        return escolaridade.getFormacao();
+    }
+
+
+    public String retornaEstadoNascimento(){
+        return naturalidade.getNomeEstado();
+    }
+    public String retornaCidadeNascimento(){
+        return naturalidade.getNome();
     }
 }

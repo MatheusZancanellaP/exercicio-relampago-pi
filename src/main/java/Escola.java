@@ -2,6 +2,12 @@ public class Escola {
     private  Cidade cidade;
     private Professor diretor;
 
+    public Escola(Professor diretor,Cidade cidade) {
+    this.diretor = diretor;
+    this.cidade = cidade;
+    }
+
+
     public Cidade getCidade() {
         return cidade;
     }
@@ -16,5 +22,13 @@ public class Escola {
 
     public void setDiretor(Professor diretor) {
         this.diretor = diretor;
+    }
+
+    public String getEscolaridadeDiretor(){
+        return diretor.getDescricaoEscolaridade();
+    }
+
+    public String retornaEstadoLocalizacao(){
+        return cidade.getNomeEstado();
     }
 }

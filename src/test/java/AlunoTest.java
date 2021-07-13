@@ -1,44 +1,46 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AlunoTest {
+    private Cidade cidade;
+    private Escolaridade escolaridade;
+    private  Professor professor;
+    private Curso curso;
+    private Estado estado;
+    private Escola escola;
+    private Aluno aluno;
+    private TipoEnsino tipoEnsino;
+    @BeforeEach
+    void setUp() {
+        tipoEnsino = new TipoEnsino();
+        estado = new Estado();
+        cidade = new Cidade(estado);
+        escolaridade = new Escolaridade();
+        professor = new Professor(escolaridade,cidade);
+        escola = new Escola(professor,cidade);
+        curso = new Curso(professor,escola,tipoEnsino);
+        aluno = new Aluno(escolaridade,cidade,curso);
 
+    }
+    @Test
+    void deveRetornarBahia() {
+        estado.setNome("Bahia");
+        assertEquals("Bahia",aluno.retornaEstadoNascimento());
+    }
     @Test
     void deveRetornarSP() {
-        Aluno aluno = new Aluno();
-        Cidade cidade = new Cidade();
-        Estado estado = new Estado();
-        cidade.setEstado(estado);
         estado.setNome("SP");
-        aluno.setNaturalidade(cidade);
-        assertEquals("SP",aluno.getNaturalidade().getEstado().getNome());
+        assertEquals("SP",aluno.retornaEstadoEstuda());
+    }
+    @Test
+    void deveRetornarMarco() {
+        professor.setNome("Jean");
+        assertEquals("Jean",aluno.retornaCoordenador());
     }
 
-    @Test
-    void deveRetornarMG() {
-        Aluno aluno = new Aluno();
-        Escola escola = new Escola();
-        Cidade cidade = new Cidade();
-        Estado estado = new Estado();
-        Curso curso = new Curso();
-        curso.setEscola(escola);
-        aluno.setCurso(curso);
-        escola.setCidade(cidade);
-        cidade.setEstado(estado);
-        estado.setNome("MG");
-        assertEquals("MG",aluno.getCurso().getEscola().getCidade().getEstado().getNome());
-    }
-    @Test
-    void deveRetornarElias() {
-        Aluno aluno = new Aluno();
-        Professor professor = new Professor();
-        Curso curso = new Curso();
-        professor.setNome("Elias");
-        aluno.setCurso(curso);
-        curso.setCoordenador(professor);
-        assertEquals("Elias",aluno.getCurso().getCoordenador().getNome());
-    }
+
 
 
 }
